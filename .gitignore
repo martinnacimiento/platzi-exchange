@@ -2,7 +2,7 @@
 node_modules
 /dist
 docker-compose.yml
-run.sh
+*.sh
 
 # local env files
 .env.local
