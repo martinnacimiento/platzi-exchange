@@ -91,7 +91,6 @@ export default {
     filteredAssets() {
 
       const altOrder = this.sortOrder === 1 ? -1 : 1;
-      console.log(altOrder);
       
 
       return this.assets
