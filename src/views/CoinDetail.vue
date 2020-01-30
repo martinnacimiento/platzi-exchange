@@ -5,7 +5,9 @@
       </bounce-loader>
     </div>
     <template v-if="!isLoading">
-      <div class="flex flex-col sm:flex-row justify-around items-center">
+      <div
+        class="flex flex-col lg:flex-row justify-around items-center p-6 shadow-lg"
+      >
         <div class="flex flex-col items-center">
           <img
             :src="
@@ -20,7 +22,7 @@
           </h1>
         </div>
 
-        <div class="my-10 flex flex-col">
+        <div class="my-10 mx-10 flex flex-col">
           <ul>
             <li class="flex justify-between">
               <b class="text-gray-600 mr-10 uppercase">Ranking</b>
@@ -49,7 +51,9 @@
           </ul>
         </div>
 
-        <div class="my-10 sm:mt-0 flex flex-col justify-center text-center">
+        <div
+          class="my-10 mx-10 sm:mt-0 flex flex-col justify-center text-center"
+        >
           <button
             @click="toggleConverter"
             class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
@@ -69,18 +73,26 @@
             </label>
           </div>
 
-          <span class="text-xl"> {{ convertResult }} {{ fromUsd ? asset.symbol : "USD" }}</span>
+          <span class="text-xl">
+            {{ convertResult }} {{ fromUsd ? asset.symbol : "USD" }}</span
+          >
         </div>
       </div>
+
       <line-chart
-        class="my-10"
+        class="my-10 shadow-lg"
         :colors="['orange']"
         :min="min"
         :max="max"
         :data="history.map(h => [h.date, parseFloat(h.priceUsd).toFixed(2)])"
       ></line-chart>
-      <h3 class="text-xl my-10">Mejores Ofertas de Cambio</h3>
-      <table>
+
+      <table class="shadow-lg border-collapse">
+        <caption class="w-auto text-left">
+          <span class="py-4 px-4 font-sans text-xl text-gray-800 text-center"
+            >Mejores Ofertas de Cambio</span
+          >
+        </caption>
         <tr
           v-for="m in markets"
           :key="`${m.exchangeId}-${m.priceUsd}`"
@@ -134,8 +146,9 @@ export default {
       if (!this.convertValue) {
         return 0;
       }
-      const  result = this.fromUsd ? this.convertValue / this.asset.priceUsd :
-        this.convertValue * this.asset.priceUsd;
+      const result = this.fromUsd
+        ? this.convertValue / this.asset.priceUsd
+        : this.convertValue * this.asset.priceUsd;
 
       return result.toFixed(4);
     },
@@ -164,7 +177,7 @@ export default {
   },
 
   watch: {
-    $route () {
+    $route() {
       this.getCoin();
     }
   },

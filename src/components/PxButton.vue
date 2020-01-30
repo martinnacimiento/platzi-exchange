@@ -7,6 +7,7 @@
       :loading="isLoading"
       :color="`#68d391`"
       :size="8"
+      class="w-24"
     ></beat-loader>
     <P v-show="!isLoading">
       <slot></slot>

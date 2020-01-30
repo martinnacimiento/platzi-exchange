@@ -1,76 +1,57 @@
-<template>
-  <div>
-    <table>
-      <thead>
-        <tr class="bg-gray-100 border-b-2 border-gray-400">
-          <th></th>
-          <th
+<template lang="pug">
+  div(class="shadow-lg")
+    table
+      thead
+        tr(class="bg-gray-100 border-b-2 border-gray-400")
+          th
+          th(
             :class="{ up: this.sortOrder === 1, down: this.sortOrder === -1 }"
-          >
-            <span class="underline cursor-pointer" @click="changeSortOrder">
-              Ranking
-            </span>
-          </th>
-          <th>Nombre</th>
-          <th>Precio</th>
-          <th>Cap. de Mercado</th>
-          <th>Variación 24hs</th>
-          <td class="hidden sm:block">
-            <input
+          )
+            span(class="underline cursor-pointer" @click="changeSortOrder")
+              | Ranking
+          th Nombre
+          th Precio
+          th Cap. de Mercado
+          th Variación 24hs
+          td(class="hidden sm:block")
+            input(
               class="bg-gray-100 focus:outline-none border-b border-gray-400 py-2 px-4 block w-full appearance-none leading-normal"
               id="filter"
               placeholder="Buscar..."
               type="text"
               v-model="filter"
-            />
-          </td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
+            )
+      tbody
+        tr(
           v-for="a in filteredAssets"
           :key="a.id"
           class="border-b border-gray-200 hover:bg-gray-100 hover:bg-orange-100"
-        >
-          <td>
-            <img
+        )
+          td
+            img(
               class="w-6 h-6"
-              :src="
-                `https://static.coincap.io/assets/icons/${a.symbol.toLowerCase()}@2x.png`
-              "
+              :src="`https://static.coincap.io/assets/icons/${a.symbol.toLowerCase()}@2x.png`"
               :alt="a.name"
-            />
-          </td>
-          <td>
-            <b># {{ a.rank }}</b>
-          </td>
-          <td>
-            <router-link
+            )
+          td
+            b # {{ a.rank }}
+          td
+            router-link(
               class="hover:underline text-green-600"
               :to="{ name: 'coin-detail', params: { id: a.id } }"
-            >
-              {{ a.name }}
-            </router-link>
-            <small class="ml-1 text-gray-500">
-              {{ a.symbol }}
-            </small>
-          </td>
-          <td>{{ a.priceUsd | dollar }}</td>
-          <td>{{ a.marketCapUsd | dollar }}</td>
-          <td
+            ) 
+              |{{ a.name }}
+            small(class="ml-1 text-gray-500") 
+              |{{ a.symbol }}
+          td {{ a.priceUsd | dollar }}
+          td {{ a.marketCapUsd | dollar }}
+          td(
             :class="a.changePercent24Hr > 0 ? 'text-green-600' : 'text-red-600'"
-          >
-            {{ a.changePercent24Hr | percent }}
-          </td>
-          <td class="hidden sm:block">
-            <px-button @click="goToCoin(a.id)">
-              <span>Detalle</span>
-            </px-button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+          )
+            | {{ a.changePercent24Hr | percent }}
+          td(class="hidden sm:block")
+            px-button(@click="goToCoin(a.id)")
+              span Detalle
 </template>
 
 <script>
@@ -89,9 +70,7 @@ export default {
 
   computed: {
     filteredAssets() {
-
       const altOrder = this.sortOrder === 1 ? -1 : 1;
-      
 
       return this.assets
         .filter(
