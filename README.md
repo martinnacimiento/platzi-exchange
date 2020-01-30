@@ -1,29 +1,35 @@
-# platzi-exchange
+# crypto-exchange
 
-## Project setup
+## Descripción
+Proyecto para obtener las cotizaciones de las cryptomonedas mas importantes a traves de la API REST de Coincap.
+
+## Tecnologías utilizadas
+- Vuejs
+- Tailwind
+- Api Fetch
+- Docker
+
+## Configuración del proyecto
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Compila y re-cargas en caliente para desarrollo
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Compila y minifica para producción
 ```
 npm run build
 ```
 
-### Lints and fixes files
+### Limpia y corrige archivos
 ```
 npm run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-
-## Docker setup
+## Configurar entorno de desarrollo con Docker
 Construya la imagen con
 ```
 docker build --tag platzi-exchange:1.0 .
