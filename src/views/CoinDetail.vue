@@ -87,7 +87,7 @@
         :data="history.map(h => [h.date, parseFloat(h.priceUsd).toFixed(2)])"
       ></line-chart>
 
-      <table class="shadow-lg border-collapse">
+      <table class="shadow-lg">
         <caption class="w-auto text-left">
           <span class="py-4 px-4 font-sans text-xl text-gray-800 text-center"
             >Mejores Ofertas de Cambio</span
