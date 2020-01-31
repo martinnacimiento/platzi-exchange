@@ -1,55 +1,42 @@
-<template>
-  <div
-    class="footer-wrapper bg-grey-lighter mt-auto p flex flex-col lg:flex-row "
-  >
-    <div class="footer border-t border-grey-light py-4 sticky inline-flex">
-      <span class="px-2 py-2 mx-2"> &copy; Hecho por Nacimiento Martin </span>
-      <button
-        class="mx-1 hover:bg-gray-200 rounded-full"
-        @click="href('https://www.linkedin.com/in/martinnacimiento/')"
-        target="_blank"
-      >
-        <img
-          class="w-5 h-5"
-          src="https://img.icons8.com/ios-glyphs/30/000000/linkedin-2.png"
-        />
-      </button>
-      <button
-        class="mx-1 hover:bg-gray-200 rounded-full"
-        @click="href('https://github.com/martinnacimiento')"
-        target="_blank"
-      >
-        <img
-          class="w-5 h-5"
-          src="https://img.icons8.com/ios-glyphs/30/000000/github.png"
-        />
-      </button>
-      <button
-        class="mx-1 hover:bg-gray-200 rounded-full"
-        @click="href('https://www.instagram.com/martinnacimiento/')"
-        target="_blank"
-      >
-        <img
-          class="w-5 h-5"
-          src="https://img.icons8.com/material-outlined/26/000000/instagram-new.png"
-        />
-      </button>
-      <button
-        class="mx-1 hover:bg-gray-200 rounded-full"
-        @click="href('https://twitter.com/martinacimiento')"
-        target="_blank"
-      >
-        <img
-          class="w-5 h-5"
-          src="https://img.icons8.com/android/24/000000/twitter.png"
-        />
-      </button>
-    </div>
-  </div>
+<template lang="pug">
+  v-footer(
+    dark
+    padless
+    sticky
+  )
+    v-card(
+      flat
+      tile
+      class="bg-green-400 text-white text-center w-full"
+    )
+      v-card-text
+        v-btn(
+          v-for="(r,i) in redes"
+          :key="i"
+          class="mx-4 text-white"
+          icon
+          @click="href(r.url)"
+        )
+          v-icon(size="24px" class="text-white"  ) {{ r.icon }}
+
+      v-card-text(class="white--text pt-0")
+      | Gracias por probar Crypto Exchange, te invito a seguirme en mis redes sociales para estar al tanto de nuevos proyectos y actualizaciones.
+      v-divider
+
+      v-card-text(class="white--text")
+      |  {{ new Date().getFullYear() }} — 💻 con ♥  por Nacimiento Martin
 </template>
 
 <script>
 export default {
+  data: () => ({
+      redes: [
+        { url: "https://www.linkedin.com/in/nacimientomartin/", icon: "mdi-linkedin" },
+        { url: "https://github.com/martinnacimiento", icon: "mdi-github-circle" },
+        { url: "https://www.instagram.com/martinnacimiento/", icon: "mdi-instagram" },
+        { url: "https://twitter.com/martinacimiento", icon: "mdi-twitter" },
+      ],
+    }),
   methods: {
     href(url) {
       window.open(url, "_blank");

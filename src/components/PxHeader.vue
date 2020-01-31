@@ -1,8 +1,9 @@
 <template lang="pug">
   div.flex.flex-row
-    div(v-show="isButtonBack" class="mr-2 -ml-4")
-      v-btn( @click="back()" icon ) 
-        v-icon mdi-arrow-left
+    v-slide-x-transition
+      div(v-show="isButtonBack" class="mr-2 -ml-4")
+        v-btn( @click="back()" icon ) 
+          v-icon mdi-arrow-left
     div.flex.items-center.flex-shrink-0.text-white.mr-6
       px-icon.mr-2
       router-link(
@@ -17,6 +18,11 @@
           :to="l.to"
           class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
         ) {{ l.title }}
+    div.flex-row
+      v-btn( 
+        :to="{name:'about'}"
+        text
+      ).flex.justify-end Acerca
 </template>
 
 <script>

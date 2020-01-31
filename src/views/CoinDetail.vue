@@ -16,7 +16,7 @@
           h1.text-5xl {{ asset.name }}
             small(class="sm:mr-2 text-gray-500") {{ asset.symbol }}
         div(class="my-10 mx-10 flex flex-col")
-          v-list(dense).border.border-gray-400
+          v-list(dense).border.border-green-200
             v-list-item(class="flex justify-between")
               b(class="text-gray-600 mr-10 uppercase") Ranking
               span # {{ asset.rank }}
@@ -49,7 +49,8 @@
               v-text-field(
                 v-model="convertValue"
                 id="convertValue"
-                :placeholder="`Valor en ${fromUsd ? 'USD' : asset.symbol}`"
+                :label="`Valor en ${fromUsd ? 'USD' : asset.symbol}`"
+                color="green" 
               )
 
           span.text-xl {{ convertResult }} {{ fromUsd ? asset.symbol : "USD" }}

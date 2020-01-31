@@ -1,5 +1,12 @@
 <template lang="pug">
   v-card( raised )
+    v-card-title Divisas
+      v-spacer
+      v-text-field(
+        v-model="search"
+        label="Buscar"
+        color="green" 
+      )
     v-data-table(
       :headers="headers"
       :items="assets"
