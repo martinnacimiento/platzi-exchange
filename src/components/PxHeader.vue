@@ -1,5 +1,8 @@
 <template lang="pug">
-  div
+  div.flex.flex-row
+    div(v-show="isButtonBack" class="mr-2 -ml-4")
+      v-btn( @click="back()" icon ) 
+        v-icon mdi-arrow-left
     div.flex.items-center.flex-shrink-0.text-white.mr-6
       px-icon.mr-2
       router-link(
@@ -28,6 +31,28 @@ export default {
     links: {
       type: Array,
       default: () => []
+    }
+  },
+
+  data () {
+    return {
+      isButtonBack: false
+    }
+  },
+
+  watch: {
+    $route() {
+      if (this.$route.path === '/') {
+        this.isButtonBack = false;
+      } else {
+        this.isButtonBack = true;
+      }
+    }
+  },
+
+  methods: {
+    back() {
+      this.$router.back();
     }
   }
 };

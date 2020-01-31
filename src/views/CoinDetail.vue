@@ -1,125 +1,84 @@
-<template>
-  <div class="flex-col">
-    <div class="flex justify-center">
-      <bounce-loader :loading="isLoading" :color="`#68d391`" :size="100">
-      </bounce-loader>
-    </div>
-    <template v-if="!isLoading">
-      <div
-        class="flex flex-col lg:flex-row justify-around items-center p-6 shadow-lg"
-      >
-        <div class="flex flex-col items-center">
-          <img
-            :src="
-              `https://static.coincap.io/assets/icons/${asset.symbol.toLowerCase()}@2x.png`
-            "
+<template lang="pug">
+  div.flex-col
+    div.flex.justify-center
+      bounce-loader(:loading="isLoading" :color="`#68d391`" :size="100")
+    template( v-if="!isLoading" )
+      v-card( 
+        raised
+        class="flex flex-col lg:flex-row justify-around items-center p-6" 
+      )
+        .flex.flex-col.items-center
+          img(
+            :src="`https://static.coincap.io/assets/icons/${asset.symbol.toLowerCase()}@2x.png`"
             :alt="asset.name"
             class="w-20 h-20 mr-5"
-          />
-          <h1 class="text-5xl">
-            {{ asset.name }}
-            <small class="sm:mr-2 text-gray-500">{{ asset.symbol }}</small>
-          </h1>
-        </div>
+          )
+          h1.text-5xl {{ asset.name }}
+            small(class="sm:mr-2 text-gray-500") {{ asset.symbol }}
+        div(class="my-10 mx-10 flex flex-col")
+          v-list(dense).border.border-gray-400
+            v-list-item(class="flex justify-between")
+              b(class="text-gray-600 mr-10 uppercase") Ranking
+              span # {{ asset.rank }}
+            v-list-item(class="flex justify-between")
+              b(class="text-gray-600 mr-10 uppercase") Precio actual
+              span {{ asset.priceUsd | dollar }}
+            v-list-item(class="flex justify-between")
+              b(class="text-gray-600 mr-10 uppercase") Precio más bajo
+              span {{ min | dollar }}
+            v-list-item(class="flex justify-between")
+              b(class="text-gray-600 mr-10 uppercase") Precion más alto
+              span {{ max | dollar }}
+            v-list-item(class="flex justify-between")
+              b(class="text-gray-600 mr-10 uppercase") Precion promedio
+              span {{ avg | dollar }}
+            v-list-item(class="flex justify-between")
+              b(class="text-gray-600 mr-10 uppercase") Variación 24hs
+              span {{ asset.changePercent24Hr | percent }}
 
-        <div class="my-10 mx-10 flex flex-col">
-          <ul>
-            <li class="flex justify-between">
-              <b class="text-gray-600 mr-10 uppercase">Ranking</b>
-              <span>#{{ asset.rank }}</span>
-            </li>
-            <li class="flex justify-between">
-              <b class="text-gray-600 mr-10 uppercase">Precio actual</b>
-              <span>{{ asset.priceUsd | dollar }}</span>
-            </li>
-            <li class="flex justify-between">
-              <b class="text-gray-600 mr-10 uppercase">Precio más bajo</b>
-              <span>{{ min | dollar }}</span>
-            </li>
-            <li class="flex justify-between">
-              <b class="text-gray-600 mr-10 uppercase">Precio más alto</b>
-              <span>{{ max | dollar }}</span>
-            </li>
-            <li class="flex justify-between">
-              <b class="text-gray-600 mr-10 uppercase">Precio Promedio</b>
-              <span>{{ avg | dollar }}</span>
-            </li>
-            <li class="flex justify-between">
-              <b class="text-gray-600 mr-10 uppercase">Variación 24hs</b>
-              <span>{{ asset.changePercent24Hr | percent }}</span>
-            </li>
-          </ul>
-        </div>
-
-        <div
+        div(
           class="my-10 mx-10 sm:mt-0 flex flex-col justify-center text-center"
-        >
-          <button
+        )
+          v-btn( 
             @click="toggleConverter"
             class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-          >
-            {{ fromUsd ? `USD a ${asset.symbol}` : `${asset.symbol} a USD` }}
-          </button>
+          ) {{ fromUsd ? `USD a ${asset.symbol}` : `${asset.symbol} a USD` }}
 
-          <div class="flex flex-row my-5">
-            <label class="w-full" for="convertValue">
-              <input
+          div(class="flex flex-row my-5")
+            label(class="w-full" for="convertValue")
+              v-text-field(
                 v-model="convertValue"
                 id="convertValue"
-                type="number"
-                class="text-center bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal"
                 :placeholder="`Valor en ${fromUsd ? 'USD' : asset.symbol}`"
-              />
-            </label>
-          </div>
+              )
 
-          <span class="text-xl">
-            {{ convertResult }} {{ fromUsd ? asset.symbol : "USD" }}</span
-          >
-        </div>
-      </div>
-
-      <line-chart
-        class="my-10 shadow-lg"
-        :colors="['orange']"
-        :min="min"
-        :max="max"
-        :data="history.map(h => [h.date, parseFloat(h.priceUsd).toFixed(2)])"
-      ></line-chart>
-
-      <table class="shadow-lg">
-        <caption class="w-auto text-left">
-          <span class="py-4 px-4 font-sans text-xl text-gray-800 text-center"
-            >Mejores Ofertas de Cambio</span
-          >
-        </caption>
-        <tr
-          v-for="m in markets"
-          :key="`${m.exchangeId}-${m.priceUsd}`"
-          class="border-b"
-        >
-          <td>
-            <b>{{ m.exchangeId }}</b>
-          </td>
-          <td>{{ m.priceUsd | dollar }}</td>
-          <td>{{ m.baseSymbol }} / {{ m.quoteSymbol }}</td>
-          <td>
-            <px-button
-              :is-loading="m.isLoading || false"
-              v-if="!m.url"
-              @click="getWebSite(m)"
-            >
-              <slot>Obtener Link</slot>
-            </px-button>
-
-            <a v-else class="hover:underline text-green-600" target="_blanck">{{
-              m.url
-            }}</a>
-          </td>
-        </tr>
-      </table>
-    </template>
-  </div>
+          span.text-xl {{ convertResult }} {{ fromUsd ? asset.symbol : "USD" }}
+      v-card( raised ).my-6
+        v-card-title Variación 24hs
+        line-chart(
+          :colors="['orange']"
+          :min="min"
+          :max="max"
+          :data="history.map(h => [h.date, parseFloat(h.priceUsd).toFixed(2)])"
+        )
+      v-card( raised ).my-6
+        v-card-title Mejores ofertas de cambio
+        v-data-table(
+          :headers="headers"
+          :items="markets"
+        )
+          template(v-slot:item.priceUsd="{ item }") {{ item.priceUsd | dollar }}
+          template(v-slot:item.symbol="{ item }") {{ item.baseSymbol }} / {{ item.quoteSymbol }}
+          template(v-slot:item.actions="{ item }")
+            v-btn(
+              outlined
+              color="green"
+              @click="getWebSite(item)"
+              :loading="item.isLoading || false"
+              v-if="!item.url"
+            ) Obtener link
+            a(v-else class="hover:underline text-green-600" target="_blanck")
+            | {{ item.url }}
 </template>
 
 <script>
@@ -137,7 +96,13 @@ export default {
       isLoading: false,
       markets: [],
       fromUsd: true,
-      convertValue: null
+      convertValue: null,
+      headers: [
+        { text: "ID", value: "exchangeId"},
+        { text: "Precio", value: "priceUsd"},
+        { text: "Símbolo", value: "symbol", sortable: false, filterable: false},
+        { value: "actions", sortable: false, filterable: false},
+      ],
     };
   },
 
