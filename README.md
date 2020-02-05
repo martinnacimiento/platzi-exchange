@@ -1,5 +1,7 @@
 # crypto-exchange
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/555ea6d5-f3bd-49f1-aa2c-cfa2540ad7c4/deploy-status)](https://app.netlify.com/sites/cryptoxchange/deploys)
+
 ## Descripción
 Proyecto para obtener las cotizaciones de las cryptomonedas mas importantes a traves de la API REST de Coincap.
 
@@ -8,6 +10,8 @@ Proyecto para obtener las cotizaciones de las cryptomonedas mas importantes a tr
 - Tailwind
 - Api Fetch
 - Docker
+- Vuetify
+- PWA
 
 ## Configuración del proyecto
 ```
