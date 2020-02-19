@@ -30,13 +30,19 @@
 <script>
 export default {
   data: () => ({
-      redes: [
-        { url: "https://www.linkedin.com/in/nacimientomartin/", icon: "mdi-linkedin" },
-        { url: "https://github.com/martinnacimiento", icon: "mdi-github-circle" },
-        { url: "https://www.instagram.com/martinnacimiento/", icon: "mdi-instagram" },
-        { url: "https://twitter.com/martinacimiento", icon: "mdi-twitter" },
-      ],
-    }),
+    redes: [
+      {
+        url: "https://www.linkedin.com/in/nacimientomartin/",
+        icon: "mdi-linkedin"
+      },
+      { url: "https://github.com/martinnacimiento", icon: "mdi-github-circle" },
+      {
+        url: "https://www.instagram.com/martinnacimiento/",
+        icon: "mdi-instagram"
+      },
+      { url: "https://twitter.com/martinacimiento", icon: "mdi-twitter" }
+    ]
+  }),
   methods: {
     href(url) {
       window.open(url, "_blank");

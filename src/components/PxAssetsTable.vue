@@ -38,13 +38,18 @@ export default {
     return {
       search: "",
       headers: [
-        { value: 'logo', filterable: false, sortable: false},
-        { text: "Ranking", align: "left", value: 'rank'},
-        { text: "Nombre", align: "center", value: 'name'},
-        { text: "Precio", align: "center", value: 'priceUsd'},
-        { text: "Cap. de Mercado", align: "center", value: 'marketCapUsd'},
-        { text: "Variación 24hs", align: "center", value: 'changePercent24Hr'},
-        { align: "center", value: 'actions', filterable: false, sortable: false},
+        { value: "logo", filterable: false, sortable: false },
+        { text: "Ranking", align: "left", value: "rank" },
+        { text: "Nombre", align: "center", value: "name" },
+        { text: "Precio", align: "center", value: "priceUsd" },
+        { text: "Cap. de Mercado", align: "center", value: "marketCapUsd" },
+        { text: "Variación 24hs", align: "center", value: "changePercent24Hr" },
+        {
+          align: "center",
+          value: "actions",
+          filterable: false,
+          sortable: false
+        }
       ]
     };
   },

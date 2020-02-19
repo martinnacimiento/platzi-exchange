@@ -40,15 +40,15 @@ export default {
     }
   },
 
-  data () {
+  data() {
     return {
       isButtonBack: false
-    }
+    };
   },
 
   watch: {
     $route() {
-      if (this.$route.path === '/') {
+      if (this.$route.path === "/") {
         this.isButtonBack = false;
       } else {
         this.isButtonBack = true;

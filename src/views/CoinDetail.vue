@@ -99,11 +99,16 @@ export default {
       fromUsd: true,
       convertValue: null,
       headers: [
-        { text: "ID", value: "exchangeId"},
-        { text: "Precio", value: "priceUsd"},
-        { text: "Símbolo", value: "symbol", sortable: false, filterable: false},
-        { value: "actions", sortable: false, filterable: false},
-      ],
+        { text: "ID", value: "exchangeId" },
+        { text: "Precio", value: "priceUsd" },
+        {
+          text: "Símbolo",
+          value: "symbol",
+          sortable: false,
+          filterable: false
+        },
+        { value: "actions", sortable: false, filterable: false }
+      ]
     };
   },
 

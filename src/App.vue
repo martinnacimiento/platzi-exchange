@@ -17,7 +17,8 @@ export default {
   name: "App",
 
   components: {
-    PxHeader, PxFooter
+    PxHeader,
+    PxFooter
   },
 
   data: () => ({
